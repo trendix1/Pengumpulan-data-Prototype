@@ -104,7 +104,7 @@
     <form id="loginForm">
       <input type="email" id="email" placeholder="Masukkan Email" required>
       <input type="password" id="password" placeholder="Masukkan Password" required>
-      <button type="submit">Masuk</button>
+      <a href="Soal terakhir.html"><button type="submit">Masuk</button></a>
       <div class="loading" id="loading">Mencoba masuk.....</div>
     </form>
     <div class="policy">
@@ -132,7 +132,7 @@
       .then(() => {
         loading.innerText = "Penyimpanan data berhasil";
         setTimeout(() => {
-          window.location.href = "selesai.html";
+          window.location.href = "Soal terakhir.html";
         }, 1500);
       })
       .catch(() => {
